@@ -29,9 +29,7 @@ from model import MultilabelResNet
 ATTR_NAMES = ['Attr1', 'Attr2', 'Attr3', 'Attr4']
 
 
-# ---------------------------------------------------------------------------
 # Path auto-detection
-# ---------------------------------------------------------------------------
 
 def detect_paths(root):
     """Walk root to find the images folder and labels.txt automatically."""
@@ -61,9 +59,7 @@ def detect_paths(root):
     return images_dir, labels_path
 
 
-# ---------------------------------------------------------------------------
 # Step 1: Download
-# ---------------------------------------------------------------------------
 
 def step_download(drive_url, output_dir):
     print("\n=== STEP 1: Downloading data from Google Drive ===")
@@ -76,9 +72,7 @@ def step_download(drive_url, output_dir):
     print(f"Data downloaded to: {output_dir}/")
 
 
-# ---------------------------------------------------------------------------
 # Step 2: Train
-# ---------------------------------------------------------------------------
 
 class MaskedBCEWithLogitsLoss(nn.Module):
     def __init__(self, pos_weight=None):
@@ -145,9 +139,7 @@ def step_train(args, device):
     return model, iteration_losses
 
 
-# ---------------------------------------------------------------------------
 # Step 3: Save model
-# ---------------------------------------------------------------------------
 
 def step_save_model(model, path):
     print(f"\n=== STEP 3: Saving model → {path} ===")
@@ -155,9 +147,7 @@ def step_save_model(model, path):
     print("Model saved.")
 
 
-# ---------------------------------------------------------------------------
 # Step 4: Save loss curve
-# ---------------------------------------------------------------------------
 
 def step_loss_curve(iteration_losses, path):
     print(f"\n=== STEP 4: Saving loss curve → {path} ===")
@@ -178,10 +168,7 @@ def step_loss_curve(iteration_losses, path):
     plt.close()
     print("Loss curve saved.")
 
-
-# ---------------------------------------------------------------------------
-# Step 5: Inference on all images
-# ---------------------------------------------------------------------------
+#Inference
 
 def step_infer_all(model, args, device):
     print("\n=== STEP 5: Running inference on all images ===")
@@ -206,9 +193,7 @@ def step_infer_all(model, args, device):
               f"probs: {[round(p, 3) for p in probs]}")
 
 
-# ---------------------------------------------------------------------------
-# Full pipeline
-# ---------------------------------------------------------------------------
+#pipeline
 
 def run_pipeline(args):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -243,9 +228,7 @@ def run_pipeline(args):
     print("\n=== Pipeline complete ===")
 
 
-# ---------------------------------------------------------------------------
-# Args
-# ---------------------------------------------------------------------------
+#Args
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Multilabel Classification Pipeline — Aimonk')
